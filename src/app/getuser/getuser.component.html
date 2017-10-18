@@ -1,0 +1,28 @@
+<div *ngIf='useradded'>
+  <h5>
+    Thank you for submitting {{users[users.length-1]["email"]}}
+  </h5>
+</div>
+<div>
+  <form (submit)="onSubmit()" class="my-form" #formData='ngForm'>
+    <label>Post ID:</label> 
+    <input 
+      type="text" 
+      name="postid" 
+      required 
+      minlength="1" 
+      maxlength="99"
+      [(ngModel)]="postID"
+      #postid='ngModel'
+    />
+    <span *ngIf = 'postid.dirty && postid.invalid' class="ng-invalid">
+      <span *ngIf = "postid.errors.required">Post ID is required</span>
+      <span *ngIf = "postid.errors.minlength">Post ID must be at least 1 characters long.</span>
+    </span>
+    <br><input [disabled]="formData.invalid" type="submit" value='Get Post Title'>
+  </form>
+</div>
+
+<h2 *ngIf='!postExists'>Your Post Title: {{title}}</h2>
+<h2 *ngIf='postExists'>This post does not exist!</h2>
+
